@@ -21,7 +21,7 @@ export default async function Page({ params: { id } }) {
         />
         <div className="p-1 px-3">
           <p>
-            Hi I'm {user.first_name} {user.last_name}
+            Hi I&apos;m {user.first_name} {user.last_name}
           </p>
           <p>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem dolores assumenda itaque odit placeat non consequatur expedita beatae repudiandae quibusdam.
