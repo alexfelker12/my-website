@@ -1,9 +1,0 @@
-{
-  "editor.quickSuggestions": {
-    "strings": true
-  },
-  "editor.inlineSuggest.enabled": true,
-  "emmet.includeLanguages": {
-    "javascript": "javascriptreact"
-}
-}
