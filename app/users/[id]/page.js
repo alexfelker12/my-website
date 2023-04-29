@@ -15,6 +15,7 @@ export default async function Page({ params: { id } }) {
         <Image
         className="min-w-fit"
           src={user.avatar}
+          alt='profile picture'
           width={160}
           height={160}
         />
