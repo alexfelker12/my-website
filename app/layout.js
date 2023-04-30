@@ -17,6 +17,7 @@ export default function HomeLayout({ children }) {
   return (
     <html lang="de">
       <body className={ openSans.className + ' bg-slate-900' }>
+        <div className='bg-black text-white text-xs hidden md:flex justify-center'>in developement ...</div>
         <Header />
         <main className='main-container'>
           {children}
