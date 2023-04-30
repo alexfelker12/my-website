@@ -1,9 +1,3 @@
-// export default function Page() {
-//   return (
-//     <div>page</div>
-//   )
-// } 
-
 import { Open_Sans } from 'next/font/google'
 import './globals.css';
 import Header from './components/Header';
@@ -14,15 +8,15 @@ const openSans = Open_Sans({
 })
 
 export const metadata = {
-  title: 'My Website',
+  title: 'Home | Alex Felker',
   description: 'My Website created with Next.js',
-  keywords: 'web dev, coding, beginner, own website'
+  keywords: 'web dev, next js, coding, beginner, own website'
 }
 
 export default function HomeLayout({ children }) {
   return (
     <html lang="de">
-      <body className={ openSans.className }>
+      <body className={ openSans.className + ' bg-slate-900' }>
         <Header />
         <main className='main-container'>
           {children}
