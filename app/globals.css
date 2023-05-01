@@ -11,12 +11,5 @@ body{
   margin: 0;
   padding: 0;
   height: 100%;
-  min-height: 100%;
   color: white;
-}
-
-.main-container{
-  max-width: 1536px;
-  margin: 0 auto;
-  padding: 0;
 }
