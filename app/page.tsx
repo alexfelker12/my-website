@@ -1,12 +1,27 @@
+'use client';
+
 import Link from 'next/link'
 import './globals.css'
 
 export default function HomePage() {
+  // async function postTestUser(param: String) {
+  //   console.log(param)
+  //   const user = fetch('/api/user', {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(param)
+  //   })
+
+  //   // return user
+  // } onClick={() => postTestUser('test2@mail.com')}
+
   return (
     <div className='p-4 block w-full'>
       Welcome!
 
-      <div className={`m-4 w-48 h-16 bg-sky-600 hover:bg-sky-400 flex justify-center place-items-center cursor-pointer rounded transition-all duration-150`}><span>Button {'(does nothing)'}</span></div>
+      <button className={`m-4 w-48 h-16 bg-sky-600 hover:bg-sky-400 flex justify-center place-items-center cursor-pointer rounded transition-all duration-150`} value={'Button'}>Button</button>
 
       <div>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut commodi a accusantium odit fuga voluptates temporibus nesciunt possimus dolorum placeat dolores ab asperiores itaque unde quasi, corrupti quas provident libero.
