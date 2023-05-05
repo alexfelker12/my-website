@@ -7,19 +7,19 @@ import { useEffect } from 'react'
 
 export default function Header() {
   // prefered theme
-  useEffect(() => { if (window.matchMedia('(prefers-color-scheme: dark)').matches) document.documentElement.classList.add('dark') }, [])
+  useEffect(() => { choosePageTheme('', true) }, [])
   
-  function choosePageTheme(preferedTheme: String) {
+  function choosePageTheme(preferedTheme: String, inital: Boolean): void {
     if (preferedTheme === 'system') localStorage.removeItem('theme')
-    else localStorage.theme = preferedTheme
+    else if (preferedTheme !== '') localStorage.setItem('theme', `${preferedTheme}`)
 
-    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
       document.documentElement.classList.add('dark')
     } else {
       document.documentElement.classList.remove('dark')
     }
 
-    toggleThemeChoices()
+    if (!inital) toggleThemeChoices()
   }
 
   function toggleThemeChoices(): void {
@@ -107,9 +107,9 @@ export default function Header() {
           </div>
           <div className='absolute top-10 right-0 hidden' id='themeToggleDropdown'>
             <ul className='bg-slate-200 dark:bg-slate-700 rounded-md py-3 flex justify-start flex-col'>
-              <li className='list-none m-0'><button className='text-black hover:bg-slate-400 dark:text-white dark:hover:bg-slate-600 px-2 w-full' onClick={() => { choosePageTheme('light') }}>Light</button></li>
-              <li className='list-none m-0'><button className='text-black hover:bg-slate-400 dark:text-white dark:hover:bg-slate-600 px-2 w-full' onClick={() => { choosePageTheme('dark') }}>Dark</button></li>
-              <li className='list-none m-0'><button className='text-black hover:bg-slate-400 dark:text-white dark:hover:bg-slate-600 px-2 w-full' onClick={() => { choosePageTheme('system') }}>System</button></li>
+              <li className='list-none m-0'><button className='text-black hover:bg-slate-400 dark:text-white dark:hover:bg-slate-600 px-2 w-full' onClick={() => { choosePageTheme('light', false) }}>Light</button></li>
+              <li className='list-none m-0'><button className='text-black hover:bg-slate-400 dark:text-white dark:hover:bg-slate-600 px-2 w-full' onClick={() => { choosePageTheme('dark', false) }}>Dark</button></li>
+              <li className='list-none m-0'><button className='text-black hover:bg-slate-400 dark:text-white dark:hover:bg-slate-600 px-2 w-full' onClick={() => { choosePageTheme('system', false) }}>System</button></li>
             </ul>
           </div>
           <div className='hidden sm:flex'>
