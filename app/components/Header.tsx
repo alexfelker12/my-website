@@ -3,10 +3,32 @@
 import Link from 'next/link'
 import Image from 'next/image';
 import { FaGithub, FaBars, FaTimes, FaRegSun, FaRegMoon } from 'react-icons/fa'
+import { useEffect } from 'react'
 
 export default function Header() {
+  // prefered theme
+  useEffect(() => { if (window.matchMedia('(prefers-color-scheme: dark)').matches) document.documentElement.classList.add('dark') }, [])
+  
+  function choosePageTheme(preferedTheme: String) {
+    if (preferedTheme === 'system') localStorage.removeItem('theme')
+    else localStorage.theme = preferedTheme
 
-  function toggleSidabar() {
+    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+    }
+
+    toggleThemeChoices()
+  }
+
+  function toggleThemeChoices(): void {
+    const themeToggleDropdownClasses = document.getElementById('themeToggleDropdown').classList
+    themeToggleDropdownClasses.toggle('hidden')
+    themeToggleDropdownClasses.toggle('flex')
+  }
+
+  function toggleSidabar(): void {
     const bodyClasses = document.querySelector('body').classList
     const headerClasses = document.getElementById('navbar').classList
     const sidebarClasses = document.getElementById('menu-sidebar').classList
@@ -27,7 +49,7 @@ export default function Header() {
         </div>
 
         {/* sidbar < 640px */}
-        <div id='menu-sidebar' className='hidden absolute right-0 top-0 h-screen w-screen backdrop-blur-sm'>
+        <div id='menu-sidebar' className='hidden absolute right-0 top-0 h-screen w-screen backdrop-blur-sm z-50'>
           <div className='w-2/5 h-full' onClick={toggleSidabar}></div>
           <div className='flex flex-col w-3/5 bg-slate-700 shadow-xl sm:flex-row sm:justify-start sm:w-auto'>
             <div className='flex flex-wrap content-center justify-end h-20 mr-6'>
@@ -78,15 +100,26 @@ export default function Header() {
         </div>
 
         {/* right end */}
-        <div className='hidden sm:flex'>
-          <Link href='https://github.com/alexfelker12' target='_blank'>
-            <FaGithub className='h-7 w-7' />
-          </Link>
-        </div>
-        <div className='flex sm:hidden flex-row'>
-          <FaBars className='h-7 w-7' onClick={toggleSidabar} />
-          <FaRegSun className='h-7 w-7 hidden' />
-          <FaRegMoon className='h-7 w-7 hidden' />
+        <div className='flex relative h-full'>
+          <div className='mx-4'>
+            <FaRegSun className='h-6 w-6 dark:hidden' onClick={toggleThemeChoices} />
+            <FaRegMoon className='h-6 w-6 hidden dark:inline' onClick={toggleThemeChoices} />
+          </div>
+          <div className='absolute top-10 right-0 hidden' id='themeToggleDropdown'>
+            <ul className='bg-slate-200 dark:bg-slate-700 rounded-md py-3 flex justify-start flex-col'>
+              <li className='list-none m-0'><button className='text-black hover:bg-slate-400 dark:text-white dark:hover:bg-slate-600 px-2 w-full' onClick={() => { choosePageTheme('light') }}>Light</button></li>
+              <li className='list-none m-0'><button className='text-black hover:bg-slate-400 dark:text-white dark:hover:bg-slate-600 px-2 w-full' onClick={() => { choosePageTheme('dark') }}>Dark</button></li>
+              <li className='list-none m-0'><button className='text-black hover:bg-slate-400 dark:text-white dark:hover:bg-slate-600 px-2 w-full' onClick={() => { choosePageTheme('system') }}>System</button></li>
+            </ul>
+          </div>
+          <div className='hidden sm:flex'>
+            <Link href='https://github.com/alexfelker12' target='_blank'>
+              <FaGithub className='h-7 w-7' />
+            </Link>
+          </div>
+          <div className='flex sm:hidden flex-row'>
+            <FaBars className='h-7 w-7' onClick={toggleSidabar} />
+          </div>
         </div>
       </div>
 

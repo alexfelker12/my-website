@@ -25,7 +25,7 @@ export default function HomeLayout({ children }) {
           <link rel="manifest" href="/site.webmanifest" />
           <meta name="viewport" content="width=device-width,height=device-height initial-scale=1" />
         </Head>
-        <body className={openSans.className + ' bg-slate-900'}>
+        <body className={openSans.className + ' bg-slate-50 dark:bg-slate-900'}>
           <Header />
           <div className="flex"></div>
           <main className='max-w-screen-2xl mt-20 m-auto p-0'>
