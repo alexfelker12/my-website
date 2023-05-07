@@ -1,5 +1,9 @@
 import Link from "next/link"
 
+export const metadata = {
+  title: 'Users | Alex Felker'
+}
+
 async function fetchUsers() {
   const response = await fetch('https://reqres.in/api/users')
   return await response.json()

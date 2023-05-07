@@ -1,8 +1,5 @@
-
 export const metadata = {
-  title: 'Impressum',
-  description: 'Impressum meiner Website',
-  keywords: ''
+  title: 'Impressum | Alex Felker'
 }
 
 export default function ImpressumPage() {

@@ -2,14 +2,22 @@
 
 import Link from 'next/link'
 import Image from 'next/image';
-import { FaGithub, FaBars, FaTimes, FaRegSun, FaRegMoon } from 'react-icons/fa'
-import { useEffect } from 'react'
+import { FaGithub, FaBars, FaTimes, FaRegSun, FaRegMoon, FaDesktop } from 'react-icons/fa'
+import { useEffect, useState, useRef } from 'react'
 
 export default function Header() {
   // prefered theme
-  useEffect(() => { choosePageTheme('', true) }, [])
-  
-  function choosePageTheme(preferedTheme: String, inital: Boolean): void {
+  useEffect(() => {
+    choosePageTheme('')
+
+    document.addEventListener('mousedown', themeToggleHandler)
+  }, [])
+
+  const [themeToggleOpen, setThemeToggleOpen] = useState(false)
+  const themeToggleRef = useRef<HTMLDivElement>()
+
+
+  function choosePageTheme(preferedTheme: String): void {
     if (preferedTheme === 'system') localStorage.removeItem('theme')
     else if (preferedTheme !== '') localStorage.setItem('theme', `${preferedTheme}`)
 
@@ -19,21 +27,23 @@ export default function Header() {
       document.documentElement.classList.remove('dark')
     }
 
-    if (!inital) toggleThemeChoices()
+    if (themeToggleOpen) setThemeToggleOpen(!themeToggleOpen)
+  }
+
+  function themeToggleHandler(e) {
+    if (themeToggleRef && !themeToggleRef.current.contains(e.target)) setThemeToggleOpen(false)
   }
 
   function toggleThemeChoices(): void {
-    const themeToggleDropdownClasses = document.getElementById('themeToggleDropdown').classList
-    themeToggleDropdownClasses.toggle('hidden')
-    themeToggleDropdownClasses.toggle('flex')
+    setThemeToggleOpen(!themeToggleOpen)
   }
 
+
   function toggleSidabar(): void {
-    const bodyClasses = document.querySelector('body').classList
-    const headerClasses = document.getElementById('navbar').classList
+    document.querySelector('body').classList.toggle('overflow-hidden')
+    document.getElementById('navbar').classList.toggle('backdrop-blur-sm')
+
     const sidebarClasses = document.getElementById('menu-sidebar').classList
-    bodyClasses.toggle('overflow-hidden')
-    headerClasses.toggle('backdrop-blur-sm')
     sidebarClasses.toggle('flex')
     sidebarClasses.toggle('hidden')
   }
@@ -100,21 +110,34 @@ export default function Header() {
         </div>
 
         {/* right end */}
-        <div className='flex relative h-full'>
+        <div className='flex relative h-full' ref={themeToggleRef}>
           <div className='mx-4'>
             <FaRegSun className='cursor-pointer h-6 w-6 dark:hidden' onClick={toggleThemeChoices} />
             <FaRegMoon className='cursor-pointer h-6 w-6 hidden dark:inline' onClick={toggleThemeChoices} />
           </div>
-          <div className='absolute top-10 right-0 hidden' id='themeToggleDropdown'>
-            <ul className='bg-slate-200 dark:bg-slate-700 rounded-md py-3 flex justify-start flex-col'>
-              <li className='list-none m-0'><button className='text-black hover:bg-slate-400 dark:text-white dark:hover:bg-slate-600 px-2 w-full' onClick={() => { choosePageTheme('light', false) }}>Light</button></li>
-              <li className='list-none m-0'><button className='text-black hover:bg-slate-400 dark:text-white dark:hover:bg-slate-600 px-2 w-full' onClick={() => { choosePageTheme('dark', false) }}>Dark</button></li>
-              <li className='list-none m-0'><button className='text-black hover:bg-slate-400 dark:text-white dark:hover:bg-slate-600 px-2 w-full' onClick={() => { choosePageTheme('system', false) }}>System</button></li>
+          {themeToggleOpen && (<div className='absolute top-10 right-0' id='themeToggleDropdown'>
+            <ul className='border rounded-lg shadow-md p-2 flex justify-start flex-col w-32 bg-slate-50 dark:bg-slate-950 border-slate-400/50'>
+
+              <li className='flex items-center rounded-md list-none m-0 hover:bg-slate-100 dark:hover:bg-slate-800 px-1'>
+                <FaRegSun className='w-6 h-6 text-slate-400 fill-current' />
+                <button className='px-2 w-full text-left rounded-md' onClick={() => { choosePageTheme('light') }}>Light</button>
+                </li>
+
+              <li className='flex items-center rounded-md list-none m-0 hover:bg-slate-100 dark:hover:bg-slate-800 px-1'>
+                <FaRegMoon className='w-6 h-6 text-slate-400 fill-current' />
+                <button className='px-2 w-full text-left rounded-md' onClick={() => { choosePageTheme('dark') }}>Dark</button>
+                </li>
+
+              <li className='flex items-center rounded-md list-none m-0 hover:bg-slate-100 dark:hover:bg-slate-800 px-1'>
+                <FaDesktop className='w-6 h-6 text-slate-400 fill-current' />
+                <button className='px-2 w-full text-left rounded-md' onClick={() => { choosePageTheme('system') }}>System</button>
+                </li>
+
             </ul>
-          </div>
+          </div>)}
           <div className='hidden sm:flex'>
             <Link href='https://github.com/alexfelker12' target='_blank'>
-              <FaGithub className='h-7 w-7' />
+              <FaGithub className='h-6 w-6' />
             </Link>
           </div>
           <div className='flex sm:hidden flex-row'>
