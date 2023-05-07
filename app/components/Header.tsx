@@ -39,9 +39,9 @@ export default function Header() {
   }
 
   return (
-    <header className='fixed border-b border-slate-400/50 top-0 flex flex-wrap content-center w-full px-6 h-20 text-xl shadow-xl bg-slate-900/75 backdrop-blur-sm' id='navbar'>
-      <div className="max-w-screen-2xl w-full m-auto flex justify-between">
-        <div className='text-slate-200 hover:text-sky-400 transition duration-150'>
+    <header className='fixed border-b border-slate-500/30 top-0 flex flex-wrap content-center w-full px-6 h-20 text-xl shadow-lg bg-slate-50/75 dark:bg-slate-950/75 backdrop-blur-sm ' id='navbar'>
+      <div className="max-w-screen-xl w-full m-auto flex justify-between text-black dark:text-slate-200">
+        <div className=''>
           <Link href='/'>
             <Image src='/F.svg' alt='F logo' width={28} height={28} className='inline-flex h-7' />
             <span className='ml-2 italic'>Alex Felker</span>
@@ -82,17 +82,17 @@ export default function Header() {
 
         {/* subpages >= 640px */}
         <div className='hidden sm:flex flex-grow pl-8'>
-          <div className='mx-4 hover:text-sky-400  transition duration-150'>
+          <div className='mx-4 hover:text-slate-500 dark:hover:text-sky-400  transition duration-150'>
             <Link href='/users'>
               Users
             </Link>
           </div>
-          <div className='mx-4 hover:text-sky-400  transition duration-150'>
+          <div className='mx-4 hover:text-slate-500 dark:hover:text-sky-400  transition duration-150'>
             <Link href='/impressum'>
               Impressum
             </Link>
           </div>
-          <div className='mx-4 hover:text-sky-400  transition duration-150'>
+          <div className='mx-4 hover:text-slate-500 dark:hover:text-sky-400  transition duration-150'>
             <Link href='/playground'>
               Playground
             </Link>
@@ -102,8 +102,8 @@ export default function Header() {
         {/* right end */}
         <div className='flex relative h-full'>
           <div className='mx-4'>
-            <FaRegSun className='h-6 w-6 dark:hidden' onClick={toggleThemeChoices} />
-            <FaRegMoon className='h-6 w-6 hidden dark:inline' onClick={toggleThemeChoices} />
+            <FaRegSun className='cursor-pointer h-6 w-6 dark:hidden' onClick={toggleThemeChoices} />
+            <FaRegMoon className='cursor-pointer h-6 w-6 hidden dark:inline' onClick={toggleThemeChoices} />
           </div>
           <div className='absolute top-10 right-0 hidden' id='themeToggleDropdown'>
             <ul className='bg-slate-200 dark:bg-slate-700 rounded-md py-3 flex justify-start flex-col'>
